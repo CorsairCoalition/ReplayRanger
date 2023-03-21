@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"module": "ES2022",
+		"target": "ES2022",
+		"removeComments": true,
+		// "preserveConstEnums": true,
+		"moduleResolution": "node",
+		// "strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"sourceMap": true,
+		// "outDir": "out"
+	},
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts"
+	],
+	"$schema": "https://json.schemastore.org/tsconfig"
+}
