@@ -1,8 +1,7 @@
 {
-  "name": "replay-ranger",
+  "name": "@corsaircoalition/replay-ranger",
   "version": "2.0.0",
   "description": "record and replay generals.io game updates to Redis",
-  "private": true,
   "main": "out/index.js",
   "type": "module",
   "dependencies": {
