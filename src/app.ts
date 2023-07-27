@@ -86,6 +86,8 @@ export default class App {
 	public static sendEventsToRedis = async (replayFile: string, sendGameState: boolean, numEventsToSend: number, numEventsToSkip: number, delay: number) => {
 
 		const dataStore = JSON.parse(await fs.readFile(replayFile, 'utf8'))
+		App.botId = dataStore.botId
+		App.replayId = dataStore.replayId
 
 		// Send messages to Redis with a delay
 		const totalEvents = dataStore[RedisData.CHANNEL.TURN].length
@@ -107,14 +109,23 @@ export default class App {
 		}
 
 		for (let i = numEventsToSkip; i < numEventsToSkip + numEventsToSend; i++) {
-			Redis.publisher.publish(`${App.botId}-${RedisData.CHANNEL.TURN}`, dataStore[RedisData.CHANNEL.TURN][i])
-			Redis.publisher.publish(`${App.botId}-${RedisData.CHANNEL.GAME_UPDATE}`, dataStore[RedisData.CHANNEL.GAME_UPDATE][i])
+			const pubTurn = Redis.publisher.publish(`${App.botId}-${RedisData.CHANNEL.TURN}`, dataStore[RedisData.CHANNEL.TURN][i])
+			const pubUpdate = Redis.publisher.publish(`${App.botId}-${RedisData.CHANNEL.GAME_UPDATE}`, dataStore[RedisData.CHANNEL.GAME_UPDATE][i])
 
-			Redis.setKeys(`${App.botId}-${App.replayId}`, dataStore.KEYS[i]).catch((error) => {
+			Log.stdout(`Setting keys for event ${i+1} of ${totalEvents} to ${App.botId}`)
+			Redis.setKeys(`${App.botId}-${App.replayId}`, dataStore.KEYS[i]).then(()=> {
+				Log.stdout(`Set keys for event ${i+1} of ${totalEvents} to ${App.botId}`)
+			}).catch((error) => {
 				Log.stderr('Error setting keys: ', error)
 			})
 
 			Log.stdout(`Sent event ${i+1} of ${totalEvents} to ${App.botId}`)
+			Promise.all([pubTurn, pubUpdate]).then(() => {
+				Log.stdout(`Published event ${i+1} of ${totalEvents} to ${App.botId}`)
+				Log.debugObject('Turn', dataStore[RedisData.CHANNEL.TURN][i])
+				Log.debugObject('Game update', dataStore[RedisData.CHANNEL.GAME_UPDATE][i])
+			})
+
 			await later(delay)
 		}
 
