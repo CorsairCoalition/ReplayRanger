@@ -32,12 +32,12 @@ program
 program
 	.command('replay <configFile> <filename>')
 	.description('Load events from a file and send them to Redis')
-	.option('--send-game-state', 'Send initial game state event', false)
-	.option('--number <number>', 'Number of events to send', '10')
-	.option('--skip <number>', 'Number of events to skip', '0')
+	.option('-S, --send-game-state', 'Send initial game state event', false)
+	.option('-s, --skip <number>', 'Number of events to skip', '0')
+	.option('-c, --count <number>', 'Number of events to send', '10')
 	.option('--delay <number>', 'Delay between messages in milliseconds', '1000')
 	.action(async (configFile, filename, options) => {
-		const numEventsToSend = parseInt(options.number);
+		const numEventsToSend = parseInt(options.count);
 		const numEventsToSkip = parseInt(options.skip);
 		const sendGameState = options.sendGameState
 		const delay = parseInt(options.delay)
