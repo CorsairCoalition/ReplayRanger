@@ -1,17 +1,14 @@
 {
+    "extends": "@sindresorhus/tsconfig",
 	"compilerOptions": {
 		"module": "ES2022",
 		"target": "ES2022",
+		"strict": false,
 		"removeComments": true,
-		// "preserveConstEnums": true,
-		"moduleResolution": "node",
-		// "strict": true,
-		"esModuleInterop": true,
-		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
 		"sourceMap": true,
-		// "outDir": "out"
+		"outDir": "out"
 	},
+	"include": ["src/**/*"],
 	"exclude": [
 		"node_modules",
 		"**/*.spec.ts"
