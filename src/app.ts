@@ -72,13 +72,13 @@ export default class App {
 	}
 
 	private static async saveMessagesToFile() {
-		const directory = new URL(App.dataDirectory, import.meta.url).pathname
+		const directory = new URL(App.dataDirectory, process.cwd())
 		const createDir = await fs.mkdir(directory, { recursive: true })
 		if (createDir) {
 			Log.stdout('Created data directory:', createDir)
 		}
-		const filename = `${App.dataDirectory}/${App.botId}-${App.replayId}.json`
-		const filepath = new URL(filename, import.meta.url).pathname
+		const filename = `${App.botId}-${App.replayId}.json`
+		const filepath = new URL(filename, directory)
 		await fs.writeFile(filepath, JSON.stringify(App.store, null, 2))
 		Log.stdout('Saved:', filename)
 	}
