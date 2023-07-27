@@ -1,8 +1,0 @@
-{
-	"redisConfig": {
-		"HOST": "",
-		"PORT": 6379,
-		"USERNAME": "",
-		"PASSWORD": ""
-	}
-}
