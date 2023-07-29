@@ -1,6 +1,6 @@
 import { Log, Redis, later } from '@corsaircoalition/common'
 import fs from 'node:fs/promises'
-import { URL } from 'node:url'
+import path from 'node:path'
 
 type StorageObject = {
 	botId: string
@@ -72,13 +72,16 @@ export default class App {
 	}
 
 	private static async saveMessagesToFile() {
-		const directory = new URL(App.dataDirectory, process.cwd())
+		const directory = path.join(process.cwd(), App.dataDirectory)
+		Log.debug('Creating data directory:', directory)
 		const createDir = await fs.mkdir(directory, { recursive: true })
 		if (createDir) {
 			Log.stdout('Created data directory:', createDir)
 		}
 		const filename = `${App.botId}-${App.replayId}.json`
-		const filepath = new URL(filename, directory)
+		// const filepath = new URL(filename, directory)
+		const filepath = path.join(directory, filename)
+		Log.debug('Saving:', filepath)
 		await fs.writeFile(filepath, JSON.stringify(App.store, null, 2))
 		Log.stdout('Saved:', filename)
 	}
