@@ -1,17 +1,17 @@
 {
   "name": "@corsaircoalition/replay-ranger",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "record and replay generals.io game updates to Redis",
   "main": "out/index.js",
   "type": "module",
   "dependencies": {
-    "@corsaircoalition/common": "^1.1.0",
-    "commander": "^10.0.0"
+    "@corsaircoalition/common": "^1.2.0",
+    "commander": "^10.0.1"
   },
   "devDependencies": {
     "@sindresorhus/tsconfig": "^3.0.1",
-    "@types/node": "^18.15.5",
-    "typescript": "^5.0.2"
+    "@types/node": "^18.17.1",
+    "typescript": "^5.1.6"
   },
   "bin": "./out/index.js",
   "files": [
