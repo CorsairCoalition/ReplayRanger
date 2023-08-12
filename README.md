@@ -1,16 +1,36 @@
 # Replay Ranger
 
-A utility to record and replay generals.io game updates to Redis. It listens to a Redis channel for game events, stores them in JSON files, and replays them back to the same Redis channels on demand.
+[Generally Genius](https://corsaircoalition.github.io/) (GG) is a modular generals.io bot framework for development and analysis of game strategies and actions. [CorsairCoalition](https://corsaircoalition.github.io/) is a collection of components that form the GG framework.
 
-## Execution
 
-```
-npx @corsaircoalition/replay-ranger --help
-```
+Replay Ranger is a utility to record and replay generals.io game updates to the [Redis](https://redis.io/) message broker. It listens to a Redis channel for game events, stores them in JSON files, and replays them back to the same Redis channels on demand.
 
 ## Configuration
 
-See [`config.json`](https://github.com/CorsairCoalition/docs/blob/main/config.json.example).
+Download `config.example.json` from the [documentation repository](https://github.com/CorsairCoalition/docs) and make desired changes.
+
+To setup other components, see the [detailed instructions](https://corsaircoalition.github.io/setup/) on the [project website](https://corsaircoalition.github.io/).
+
+## Execution
+
+Install and run the executable:
+
+```sh
+npm install -g @corsaircoalition/replay-ranger
+replay-ranger config.json
+```
+
+or run directly from npm library:
+
+```sh
+npx @corsaircoalition/replay-ranger --help
+```
+
+or use docker:
+
+```sh
+docker run -it -v ./config.json:/config.json ghcr.io/corsaircoalition/commandercortex:latest --help
+```
 
 ## Usage
 
